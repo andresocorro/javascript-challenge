@@ -20,6 +20,13 @@ tableData.forEach(ufoSighting => {
     })
 })
 
+var showData = (dataInput) => dataInput.forEach(ufoSighting => {
+    var row = tbody.append("tr");
+    Object.values(ufoSighting).forEach(value => {
+        row.append('td').text(value);
+    });
+});
+
 // Connect button as an event/listener to filter the data
 var button = d3.select("#filter-btn");
 
@@ -38,10 +45,11 @@ button.on("click", function() {
 
     // grab the value property from the datetime box content
     var inputDate = inputFieldDate.property("value");
-    // console.log(inputDate)
+    // console.log(inputDate);
     var inputCity = inputFieldCity.property("value").toLowerCase();
     // console.log(inputCity);
     var inputState = inputFieldState.property("value").toLowerCase();
+    // console.log(inputState);
     var inputCountry = inputFieldCountry.property("value").toLowerCase();
     var inputShape = inputFieldShape.property("value").toLowerCase();
 
@@ -52,19 +60,27 @@ button.on("click", function() {
     // console.log(filterDate);
     var filterCity = tableData.filter(ufoSighting => ufoSighting.city === inputCity);
     // console.log(filterCity);
+    var filterState = tableData.filter(ufoSighting => ufoSighting.state === inputState);
+    var filterCountry = tableData.filter(ufoSighting => ufoSighting.Country === inputCountry);
+    var filterShape = tableData.filter(ufoSighting => ufoSighting.shape === inputShape);
 
-    var filterCombined = tableData.filter(ufoSighting => ufoSighting.datetime === inputDate && ufoSighting.city === inputCity);
+    var filterCombined = tableData.filter(ufoSighting => ufoSighting.datetime === inputDate && ufoSighting.city === inputCity && ufoSighting.state === inputState && ufoSighting.country === inputCountry && ufoSighting.shape === inputShape);
     console.log(filterCombined)
     if (dataCheck == 1) {
         delTable = tbody.html("");
     };
 
-    filterDate.forEach(ufoFiltered => {
-        var row = tbody.append('tr');
-        Object.values(ufoFiltered).forEach(value => {
-            row.append('td').text(value);
-        });
+    let response = {
+            filterDate, filterCity, filterState, filterCountry, filterShape, filterCombined}
 
-    });
+    if(response.filterCombined.length !==0){
+
+        showData(filterCombined)
+    }
+
+    else if (response.filterCombined.length == 0 && ((response.filterDate.length !==0 || response.filterCity.length !==0 || response.filterState.length !==0 || response.filterCountry.length !==0 || response.filterShape.length !==0))){
+    showData(filterDate) || showData(filterCity) || showData(filterState) || showData(filterCountry) || showData(filterShape);
+    }; 
+
     
-})
+});
