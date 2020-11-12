@@ -6,12 +6,8 @@ This challenge consists of being able to properly sort, filter and display a dat
 
 # UFO LEVEL 1 - SEARCHING BY DATE
 
-## URL
-
-IMAGE
+![UFO_Level_1](UFO-Level-1/static/images/UFOLevel1.PNG)
 
 # UFO LEVEL 2 - ADVANCED SEARCH
 
-## URL
-
-IMAGE
+![UFO_Level_2](UFO-Level-2/static/images/UFOLevel2.PNG)
